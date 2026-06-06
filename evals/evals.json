@@ -1,0 +1,83 @@
+{
+  "skill_name": "travel-planner",
+  "version": "1.0.0",
+  "description": "Test cases for the travel-planner skill. Covers all major trip types, group profiles, and edge cases.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "beach-friend-group",
+      "prompt": "Chúng mình có 8 người bạn muốn đi Phuket 4 ngày 3 đêm vào tháng 12. Ngân sách tầm mid-range. Mọi người đều thích biển, snorkeling và ăn hải sản. Bạn có thể lên plan chi tiết cho chúng mình không?",
+      "expected_output": "Full 6-pillar plan: packing with beach-specific items, safety with Southeast Asia health warnings, 4-day timeline with beach/snorkel/food activities, budget breakdown for 8 people mid-range, tips with Grab + Thai SIM + island-hopping advice.",
+      "assertions": [
+        {"id": "a1-1", "text": "Packing list includes swimwear, reef-safe sunscreen, rashguard", "check": "response contains 'swimwear' or 'sunscreen' or 'rashguard'"},
+        {"id": "a1-2", "text": "Safety section includes dengue warning or mosquito repellent", "check": "response contains 'dengue' or 'mosquito' or 'DEET' or 'repellent'"},
+        {"id": "a1-3", "text": "Day-by-day timeline has at least 4 days", "check": "response contains 'Day 1' and 'Day 2' and 'Day 3' and 'Day 4'"},
+        {"id": "a1-4", "text": "Budget breakdown is for group of 8", "check": "response contains '8 people' or 'group of 8' or '8 travelers' in budget section"},
+        {"id": "a1-5", "text": "Practical tips include Grab app or Thai SIM", "check": "response contains 'Grab' or 'SIM' or 'eSIM' or 'Grab app'"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "city-couple-romantic",
+      "prompt": "My partner and I are planning a 5-day trip to Tokyo for our anniversary in late March. Budget is around $200/person/day. We love food, art museums, and cherry blossoms. What should we pack, what should we be careful about, and what's the best plan?",
+      "expected_output": "Romantic couple plan: packing with smart casual + Japan-specific items (IC card note, cash emphasis), cherry blossom timing note, safety (low risk Japan, but note earthquake preparedness), 5-day timeline mixing food tours/museums/hanami, budget $200/day comfort tier Tokyo pricing.",
+      "assertions": [
+        {"id": "a2-1", "text": "Cherry blossom season is addressed", "check": "response contains 'cherry blossom' or 'sakura' or 'hanami'"},
+        {"id": "a2-2", "text": "Japan cash culture is mentioned", "check": "response contains 'cash' and 'Japan'"},
+        {"id": "a2-3", "text": "IC card or Suica is recommended", "check": "response contains 'Suica' or 'Pasmo' or 'IC card' or 'transit card'"},
+        {"id": "a2-4", "text": "Budget breakdown reflects Tokyo comfort tier", "check": "response contains '$' in budget context"},
+        {"id": "a2-5", "text": "At least one romantic/anniversary specific suggestion", "check": "response contains 'romantic' or 'anniversary' or 'couple' or 'intimate' or 'special'"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "mountain-solo-safety",
+      "prompt": "I'm planning a solo 7-day trek in Nepal — Annapurna Base Camp. I'm moderately fit, never been to altitude before. Budget is tight, around $40/day. What do I absolutely need to pack, what are the real dangers I need to know about, and give me a rough day plan.",
+      "expected_output": "Solo trekker plan with strong safety focus: hiking boots, trekking poles, altitude meds (Diamox), emergency whistle, satellite communicator recommendation; safety section MUST cover altitude sickness in detail with ascent rules, HACE/HAPE emergency protocol, tell-someone-your-route; budget with trekking permit costs; insider tip about acclimatization days.",
+      "assertions": [
+        {"id": "a3-1", "text": "Altitude sickness is prominently covered", "check": "response contains 'altitude sickness' or 'AMS' or 'acclimat' or 'Diamox'"},
+        {"id": "a3-2", "text": "Ascent limit rule is mentioned (500m/day above 3000m)", "check": "response contains '500m' or 'ascend slowly' or 'acclimatization day' or 'rest day'"},
+        {"id": "a3-3", "text": "Emergency/safety items for solo are listed", "check": "response contains 'whistle' or 'emergency' or 'solo' in safety context"},
+        {"id": "a3-4", "text": "Packing includes trekking poles and hiking boots", "check": "response contains 'trekking pole' or 'hiking boot'"},
+        {"id": "a3-5", "text": "Budget reflects $40/day tight budget tier", "check": "response contains 'budget' or '$40' or 'guesthouse' or 'dal bhat'"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "family-young-kids-cultural",
+      "prompt": "Gia đình tôi 5 người (vợ chồng + 3 đứa con 4, 7, 10 tuổi) muốn đi Hội An và Đà Nẵng 6 ngày. Chúng tôi muốn tìm hiểu văn hóa, thăm phố cổ, ăn mì Quảng. Budget tầm tầm. Lên plan chi tiết giúp tôi nhé, đặc biệt quan tâm đến sự an toàn của các bé.",
+      "expected_output": "Family plan with young kids (4,7,10) must adapt all sections: timeline has kid-friendly pace with afternoon naps, packing has child ID wristbands/children's sunscreen/wet wipes, safety emphasizes ID wristbands and meeting points, activities avoid long adult-only activities, food is accessible for kids, budget for family of 5.",
+      "assertions": [
+        {"id": "a4-1", "text": "Child ID wristbands or child safety measures mentioned", "check": "response contains 'wristband' or 'ID bracelet' or 'child ID' or 'phone number on'"},
+        {"id": "a4-2", "text": "Children's sunscreen or sun protection for kids mentioned", "check": "response contains 'children' and ('sunscreen' or 'sun protection')"},
+        {"id": "a4-3", "text": "Activities are appropriate for young children", "check": "response does not recommend nightlife or adult-only activities as primary; mentions kid-friendly"},
+        {"id": "a4-4", "text": "Hoi An Old Town dress code is mentioned", "check": "response contains 'dress code' or 'cover' or 'temple' or 'modest' or 'lantern'"},
+        {"id": "a4-5", "text": "Budget accounts for family of 5", "check": "response contains '5 people' or 'family of 5' or '5 travelers' in budget context"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "corporate-large-group-outing",
+      "prompt": "Our company is organizing a 1-day team outing for 30 employees in Vung Tau, Vietnam. We're coming from Ho Chi Minh City by bus. Mix of ages 25-55. Budget is mid-range. We want beach, some team activities, a nice group dinner. Can you create a detailed plan?",
+      "expected_output": "Single-day plan (no accommodation section), large group logistics focus: bus from HCMC timing, group activities (beach volleyball, team games), group dinner reservation logistics, 30-person coordination tips, budget per head for 1 day, what not to do with a large corporate group.",
+      "assertions": [
+        {"id": "a5-1", "text": "Plan accounts for 1-day format (no overnight)", "check": "response contains 'day trip' or '1 day' or 'return to' HCMC"},
+        {"id": "a5-2", "text": "Large group logistics are addressed (30 people)", "check": "response contains '30' or 'large group' or 'charter' or 'minibus' or 'coordination'"},
+        {"id": "a5-3", "text": "Group dinner or group meal is recommended", "check": "response contains 'group dinner' or 'set menu' or 'restaurant reservation' for group"},
+        {"id": "a5-4", "text": "Team activities are included", "check": "response contains 'team' and ('activity' or 'game' or 'volleyball' or 'sports' or 'team building')"},
+        {"id": "a5-5", "text": "Transport from HCMC to Vung Tau is addressed", "check": "response contains 'bus' or 'transport' or 'Ho Chi Minh' or 'HCMC' in transport context"}
+      ]
+    },
+    {
+      "id": 6,
+      "name": "vague-input-clarification",
+      "prompt": "I want to go somewhere with my friends. Can you help plan a trip?",
+      "expected_output": "Skill enters clarification mode. Asks at minimum: where are you going, how many days, how many people. Does NOT produce a full plan without this information.",
+      "assertions": [
+        {"id": "a6-1", "text": "Skill asks clarifying questions instead of producing a full plan", "check": "response contains '?' and does not contain 'Day 1' or 'Packing List'"},
+        {"id": "a6-2", "text": "Destination question is asked", "check": "response contains 'where' or 'destination' or 'location' in question context"},
+        {"id": "a6-3", "text": "Duration or group size question is asked", "check": "response contains 'how long' or 'how many days' or 'how many people' or 'number of'"}
+      ]
+    }
+  ]
+}
